@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publication_virtues",
+  "info": {
+    "singularName": "publication-virtue",
+    "pluralName": "publication-virtues",
+    "displayName": "Publication_Virtue"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "publication": {
+      "type": "component",
+      "component": "shared.publications",
+      "repeatable": true
+    }
+  }
+}

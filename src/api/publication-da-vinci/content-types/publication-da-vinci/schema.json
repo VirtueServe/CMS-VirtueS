@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publication_da_vincis",
+  "info": {
+    "singularName": "publication-da-vinci",
+    "pluralName": "publication-da-vincis",
+    "displayName": "Publication_DaVinci"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "publication": {
+      "type": "component",
+      "component": "shared.publications",
+      "repeatable": true
+    }
+  }
+}

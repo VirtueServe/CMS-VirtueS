@@ -1,0 +1,44 @@
+# A descriptive name for your workflow
+name: Build and Deploy Strapi v5 to Azure
+
+# This section defines when the workflow should automatically run
+on:
+  push:
+    branches:
+      - initial-commit  # ‼️ IMPORTANT: Change this to your main deployment branch
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+
+# Defines the jobs the workflow will perform
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Application
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out your repository's code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js v22
+      - name: Set up Node.js version 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      # Step 3: Install ALL dependencies and build the Strapi admin panel.
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+      # Step 4: Create a zip file containing all necessary files.
+      - name: Zip artifact for deployment
+        run: zip -r release.zip .
+
+      # Step 5: Deploy the single zip file to Azure, clearing old files
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'strapi-webapp'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISHPROFILE }}
+          package: release.zip
+          clean:  true

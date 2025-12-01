@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "Job"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "location": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Full-Time",
+        "Part-Time",
+        "Internship",
+        "Contract"
+      ]
+    },
+    "experience": {
+      "type": "text"
+    },
+    "salary": {
+      "type": "text"
+    },
+    "breif_description": {
+      "type": "blocks"
+    },
+    "benefits": {
+      "type": "text"
+    },
+    "posted": {
+      "type": "datetime"
+    },
+    "description": {
+      "type": "text"
+    },
+    "job_applications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job-application.job-application",
+      "mappedBy": "job"
+    }
+  }
+}

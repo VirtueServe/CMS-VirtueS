@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hhh_newsletters",
+  "info": {
+    "singularName": "hhh-newsletter",
+    "pluralName": "hhh-newsletters",
+    "displayName": "HHH_Newsletter"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    },
+    "size": {
+      "type": "string"
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

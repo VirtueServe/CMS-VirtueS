@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "google_ads_lead_generations",
+  "info": {
+    "singularName": "google-ads-lead-generation",
+    "pluralName": "google-ads-lead-generations",
+    "displayName": "Google_ads_lead_generation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "FullName": {
+      "type": "string",
+      "required": true
+    },
+    "Company_email_id": {
+      "type": "email",
+      "required": true
+    },
+    "Designation": {
+      "type": "text",
+      "required": false
+    },
+    "mobile_number": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
