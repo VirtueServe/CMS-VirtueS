@@ -15,6 +15,9 @@
       "type": "component",
       "component": "shared.publications",
       "repeatable": true
+    },
+    "slug": {
+      "type": "uid"
     }
   }
 }
