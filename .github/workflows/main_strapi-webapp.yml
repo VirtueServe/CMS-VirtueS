@@ -1,17 +1,14 @@
 name: Build and deploy Node.js app to Azure Web App - strapi-webapp
-
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-
     steps:
       - uses: actions/checkout@v4
 
@@ -25,19 +22,22 @@ jobs:
           npm install
           npm run build --if-present
 
-      # ✅ Prune dev dependencies before packaging
       - name: Prune dev dependencies
         run: npm prune --production
 
-      # ✅ Zip only what's needed — exclude heavy/unnecessary folders
+      # ✅ node_modules excluded from zip
       - name: Zip artifact for deployment
-        run: zip -r release.zip . --exclude "*.git*" --exclude "*.github*"
+        run: |
+          zip -r release.zip . \
+            --exclude "*.git*" \
+            --exclude "*.github*" \
+            --exclude "*node_modules*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip   # ✅ Upload zip, not raw folder
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,7 +45,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -59,9 +58,23 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A266EF1F1E5D485E837A6E02ED470DF8 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_75EF433163884B18A785F56BDDE848AB }}
 
+      # ✅ Tell Azure to run npm install during deployment, not at startup
+      - name: Set SCM Build During Deployment
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: 'strapi-webapp'
+          app-settings-json: |
+            [
+              {
+                "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
+                "value": "true",
+                "slotSetting": false
+              }
+            ]
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'strapi-webapp'
           slot-name: 'Production'
-          package: release.zip   # ✅ Deploy the zip
+          package: release.zip
