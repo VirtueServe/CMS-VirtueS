@@ -22,14 +22,14 @@ jobs:
         run: |
           npm install
           npm run build --if-present
+          npm prune --production
 
-      # ✅ Zip WITHOUT node_modules — Azure will npm install via SCM
+      # ✅ Zip WITH node_modules to avoid Azure Kudu App Service npm install timeout
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip . \
             --exclude "*.git*" \
             --exclude "*.github*" \
-            --exclude "*node_modules*" \
             --exclude "*.env*"
 
       - name: Upload artifact for deployment job
