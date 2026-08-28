@@ -32,6 +32,7 @@ export interface SharedPublications extends Struct.ComponentSchema {
     author: Schema.Attribute.String;
     Context: Schema.Attribute.Blocks;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    linkedin_url: Schema.Attribute.String;
     posted: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'shared.seo', true>;
     title: Schema.Attribute.String;
