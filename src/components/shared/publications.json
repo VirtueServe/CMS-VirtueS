@@ -24,6 +24,9 @@
     "author": {
       "type": "string"
     },
+    "linkedin_url": {
+      "type": "string"
+    },
     "Context": {
       "type": "blocks"
     },
